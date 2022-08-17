@@ -5,8 +5,8 @@ const prependButton = document.getElementById("prependButton") as HTMLButtonElem
 prependButton!.addEventListener("click", function () {
     const toPrependInput = (document.getElementById("spacesNumber") as HTMLInputElement);
     const toPrependToInput = (document.getElementById("stringToPrepend") as HTMLInputElement);
-    const numberInputArray = toPrependInput!
-    const stringInputArray = toPrependToInput!
+    const numberInputArray = toPrependInput.value.split(", ")
+    const stringInputArray = toPrependToInput.value.split(", ")
 
     console.log("Trigger working...")
     console.log("Starting Spaces Numbers: " + numberInputArray)
@@ -17,12 +17,24 @@ prependButton!.addEventListener("click", function () {
 });
 
 function prepend<T>(spaces: T[], strings: T[]) {
+    let numSpaces = spaces.map(str => {
+        return Number(str);
+    })
 
-    let spacesString: string = ""
-    for (let i=0; i < spaces[0]; i++) {
-        spacesString = spacesString + " "
+    let stringArray = strings.map(str => {
+        return String(str);
+    })
+
+    let resultString = "";
+    for (let i=0; i < stringArray.length; i++) {
+        let inputString = stringArray[i]
+        let inputSpaces = numSpaces[i]
+
+        let spacesString: string = ""
+        for (let i=0; i < inputSpaces; i++) {
+            spacesString += " "
+        }
+        resultString = spacesString + inputString;
     }
-    let resultString: string = spacesString + strings[0];
-
     return resultString
 }
